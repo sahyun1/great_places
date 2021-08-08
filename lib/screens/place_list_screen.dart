@@ -18,23 +18,32 @@ class PlaceListScreen extends StatelessWidget {
                 icon: Icon(Icons.add))
           ],
         ),
-        body: Consumer<PlaceProvider>(
-          child: Center(
-            child: Text('Got no place yet'),
-          ),
-          builder: (ctx, placeData, ch) => placeData.items.length <= 0
-              ? ch
-              : ListView.builder(
-                  itemCount: placeData.items.length,
-                  itemBuilder: (ctx, i) => ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              FileImage(placeData.items[i].locationImg),
-                        ),
-                        title: Text(placeData.items[i].title),
-                        //subtitle: Text(placeData.items[i].location),
-                        onTap: () {},
-                      )),
+        body: FutureBuilder(
+          future: Provider.of<PlaceProvider>(context, listen: false)
+              .fetchAndSetPlaces(),
+          builder: (ctx, snapshot) => snapshot.connectionState ==
+                  ConnectionState.waiting
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : Consumer<PlaceProvider>(
+                  child: Center(
+                    child: Text('Got no place yet'),
+                  ),
+                  builder: (ctx, placeData, ch) => placeData.items.length <= 0
+                      ? ch
+                      : ListView.builder(
+                          itemCount: placeData.items.length,
+                          itemBuilder: (ctx, i) => ListTile(
+                                leading: CircleAvatar(
+                                  backgroundImage:
+                                      FileImage(placeData.items[i].locationImg),
+                                ),
+                                title: Text(placeData.items[i].title),
+                                //subtitle: Text(placeData.items[i].location),
+                                onTap: () {},
+                              )),
+                ),
         ));
   }
 }
