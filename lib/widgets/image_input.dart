@@ -19,8 +19,8 @@ class _ImageInputState extends State<ImageInput> {
   File _storedImage;
 
   Future<void> _takePicture() async {
-    final imagePicker = ImagePicker();
-    final imageTaken = await imagePicker.getImage(
+    // final imagePicker = ImagePicker();
+    final imageTaken = await ImagePicker.pickImage(
         source: ImageSource.camera, maxHeight: 600, maxWidth: 600);
     if (imageTaken != null) {
       setState(() {
