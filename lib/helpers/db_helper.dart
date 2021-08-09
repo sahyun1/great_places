@@ -2,6 +2,7 @@ import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
 
 class DbHelper {
+  
   static Future<sql.Database> openDatabase() async {
     final dbPath = await sql.getDatabasesPath();
     return await sql.openDatabase(
