@@ -13,7 +13,7 @@ class PlaceLocation {
 class Place {
   final String id;
   final String title;
-  final dynamic location;
+  final PlaceLocation location;
   final File locationImg;
 
   Place(
